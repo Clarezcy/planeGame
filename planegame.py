@@ -245,6 +245,12 @@ while running:
         if purple_bullet["y"] < 0 or purple_bullet["y"] > WINDOW_HEIGHT:
             player2_purple_bullets.remove(purple_bullet)
 
+        
+        # 在全局变量定义部分添加
+    line_offset = 0  # 虚线偏移量
+
+# 在主循环顶部更新虚线偏移
+    line_offset = (line_offset + line_speed) % line_spacing  # 循环移动
     # 绘制场景虚线（两边连续虚线，向下移动）
     for y in range(-line_length, WINDOW_HEIGHT, line_spacing):
         # 左边虚线
@@ -292,6 +298,9 @@ while running:
     # 画第一玩家角色血条
     pygame.draw.rect(window, RED, (player1_x, player1_y + player1_height + 5, player1_width * (player1_health / 100), 10))
     pygame.draw.rect(window, WHITE, (player1_x, player1_y + player1_height + 5, player1_width, 10), 2)  # 血条边框
+    # 画第二玩家角色血条
+    pygame.draw.rect(window, RED, (player2_x, player2_y + player2_height + 5, player2_width * (100 / 100), 10))  # 初始血量100
+    pygame.draw.rect(window, WHITE, (player2_x, player2_y + player2_height + 5, player2_width, 10), 2)  # 血条边框
     # 画伤害文字
     for damage in damage_texts[:]:
         if time.time() > damage["timer"]:
